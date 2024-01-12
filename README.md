@@ -9,7 +9,7 @@ GitHub 기반, 그룹 친화적 개발자 커뮤니티.
   - axios
   - React-Query, Recoil
   - Tailwind css
-  - React-Native
+  - PWA(Progressive Web Apps)
   - Yarn-Berry
 - BE
   - Java 17
@@ -23,6 +23,7 @@ GitHub 기반, 그룹 친화적 개발자 커뮤니티.
   - Docker
   - EC2
   - S3
+  - Netlify
 - Etc
   - Github API
   - GPT API
