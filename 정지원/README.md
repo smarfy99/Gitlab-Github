@@ -323,3 +323,73 @@ ex) ^1.1.1 | 1.1.1 ~ 2.0.0 미만
 - package.json에 맞게 yarn install 할 필요x
     
     → 브랜치 체크아웃할 때마다 .yarn/cache 폴더에 있는 의존성도 커밋으로 잡혀있기 때문에 변경된다.
+
+## 1/11 - 4일차
+# Hook 사용 이유
+
+1. 컴포넌트 사이에서 상태 로직을 재사용하기 어렵다.
+2. 복잡한 컴포넌트들은 이해하기 어렵다.
+    
+    → Hook을 통해 서로 비슷한 것을 하는 작은 함수의 묶음으로 컴포넌트를 나누는 방법을 사용할 수 있다.
+    
+3. Class는 사람과 기계를 혼동시킨다.
+
+# Hook이란?
+
+> 함수 컴포넌트에서 React state와 생명주기 기능(lifecycle features)을 연동할 수 있게 해주는 함수
+! Hook은 class 안에서는 동작하지 않는다 !
+> 
+
+### side effects
+
+다른 컴포넌트에 영향을 줄 수도 있고, 렌더링 과정에서는 구현할 수 없는 작업
+
+⇒ useEffect는 함수 컴포넌트 내에서 이런 side effects를 수행할 수 있게 함.
+
+ex. react 컴포넌트 안에서 데이터를 가져오거나 구독, DOM을 직접 조작하는 작업 등
+
+# Hook 사용 규칙
+
+1. 최상위 (at the top level)에서만 hook을 호출해야 한다. 반복문, 조건문, 중첩된 함수 내에서 hook을 실행하지 말아야 한다.
+2. React 함수 컴포넌트 내에서만 hook을 호출해야 한다. 일반 JS 함수에서는 hook을 호출해서는 안 된다. (직접 작성한 custom Hook 내에서는 호출 가능)
+
+이런 규칙들을 강제하기 위해 [linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks)을 제공한다.
+
+## 1/12 - 5일차
+# ESLint, Prettier, Husky
+
+### 코딩스타일 실수를 방지하기 위해 도구에 위임해야 한다!
+
+## ESLint
+
+> 문법 실수나 굳이 없어도 되는 것들을 쓰면 경고해주고 교정해주려는 것 ⇒ **`Linter`**
+> 
+
+## Prettier
+
+> **`Code Formatting`** 툴
+2칸 띄울지, 4칸 띄울지, 등등
+> 
+- ESLint에도 코드 포맷팅이 있으나, Prettier가 더 강력하기 때문에 혼합해서 쓴다.
+
+## Husky
+
+> 깃허브과 같은 원격 저장소에 올려버리면 무용지물
+Git Hook과 Husky를 통해 ESLink와 Prettier가 동작하도록 강제
+→ 깃허브 올라가기 전에 실수 방지
+> 
+
+<aside>
+💡 eslint or prettier가 제대로 적용 안되어 있으면 error를 띄워서 git add나 git commit이 안되게 해 깃허브에 올리지 않도록 해주는 것
+
+</aside>
+
+- Git Hook : git commit, git push 등 git 이벤트 발생 전후로 특정 스크립트(hook)를 시킬 수 있는 것
+- Husky : Git Hook 설정을 도와주는 npm package. 팀원이 프로젝트를 받아서 npm install하면 저절로 git hook이 설정되도록 해줌
+
+## dependency vs devDependency
+
+### 해당 프로젝트에 해당 패키지가 들어가냐 마냐
+
+- save-dev : 배포된 프로젝트에 해당 패키지가 들어가지 않는다.
+    - devDependencies는 배포될 때 패키지들이 포함되지 않도록 하여 용량을 줄일 수 있음
