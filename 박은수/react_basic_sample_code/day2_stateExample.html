@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+
+  const root = document.getElementById("root");
+
+  function MtH() {
+    const [amount, setAmount] = React.useState(0);
+    const [flipped, setFlipped] = React.useState(false);
+    const onChange = (event) => {
+      setAmount(event.target.value);
+    }
+    const resetAll = () => setAmount(0);
+    const onFlip = () => {
+      resetAll();
+      setFlipped((current) => !current);
+    }
+    return (<div>
+
+      <label htmlFor="minutes">Minutes : </label>
+      <input
+        value={flipped ? amount * 60 : amount}
+        id="minutes" placeholder="Minutes" type="number"
+        onChange={onChange}
+        disabled={flipped === true}
+      />
+      <h4>you want to convert : {amount}</h4>
+      <label htmlFor="hours">Hours : </label>
+      <input
+        value={flipped ? amount : Math.round(amount / 60)}
+        id="hours" placeholder="Hours" type="number"
+        onChange={onChange}
+        disabled={flipped === false} />
+      <br />
+      <button onClick={resetAll}>reset</button>
+      <button onClick={onFlip}>Flip</button>
+    </div>
+    );
+  }
+  function KtM() {
+    const [amount, setAmount] = React.useState(0);
+    const [flipped, setFlipped] = React.useState(false);
+    const onChange = (event) => {
+      setAmount(event.target.value);
+    }
+    const resetAll = () => setAmount(0);
+    const onFlip = () => {
+      resetAll();
+      setFlipped((current) => !current);
+    }
+    return (
+      <div>
+        <h3>Km to Miles</h3>
+
+        <label htmlFor="Km">Km : </label>
+        <input
+          value={flipped ? amount * 60 : amount}
+          id="Km" placeholder="Km" type="number"
+          onChange={onChange}
+          disabled={flipped === true}
+        />
+        <h4>you want to convert : {amount}</h4>
+        <label htmlFor="miles">Miles : </label>
+        <input
+          value={flipped ? amount : Math.round(amount / 60)}
+          id="miles" placeholder="Miles" type="number"
+          onChange={onChange}
+          disabled={flipped === false} />
+        <br />
+        <button onClick={resetAll}>reset</button>
+        <button onClick={onFlip}>Flip</button>
+      </div>
+    );
+  }
+  function App() {
+    const [index, setIndex] = React.useState("xx");
+    const onSelect = (event) => {
+      setIndex(event.target.value);
+    }
+    return (
+      <div>
+        <h1 className="hi">Super Converter</h1>
+        <select value={index} onChange={onSelect}>
+          <option value="xx">선택하세요</option>
+          <option value="0">M&H</option>
+          <option value="1">K&M</option>
+        </select>
+        <hr/>
+        {index === "xx" ? "선택하세요" : null}
+        {index === "0" ? <MtH/> : null}
+        {index === "1" ? <KtM/> : null}
+      </div>
+    );
+  }
+  ReactDOM.render(<App />, root);
+</script>
+
+</html>
